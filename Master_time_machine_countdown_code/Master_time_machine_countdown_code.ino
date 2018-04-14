@@ -1,6 +1,7 @@
 #include "LedControl.h"
 
-#define homeYear 2018  
+#define homeYear 2018
+int currentYear = 0000;
 extern byte NUMBER[] [8];
 
 byte totalScreens = 4;
@@ -23,8 +24,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (Serial.available() > 0) {
     String incomming = Serial.readStringUntil('\n'); // (use of string here is just for debugging)
-    int newYear = incomming.toInt();
-    Serial.println(newYear);
-    displayYear(newYear);
+    int currentYear = incomming.toInt();
+    Serial.println(currentYear);
+    displayYear(currentYear);
   }
 }
