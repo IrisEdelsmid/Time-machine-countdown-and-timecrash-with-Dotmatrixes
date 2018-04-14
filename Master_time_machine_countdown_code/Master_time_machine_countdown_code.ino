@@ -1,10 +1,8 @@
 #include "LedControl.h"
 
 #define homeYear 2018
-<<<<<<< HEAD
-=======
+
 int currentYear = 0000;
->>>>>>> c329ee98a8196085ba82ad54e4fb7e9308c19bbb
 extern byte NUMBER[] [8];
 
 byte totalScreens = 4;
