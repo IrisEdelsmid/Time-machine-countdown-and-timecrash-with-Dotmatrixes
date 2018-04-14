@@ -21,6 +21,7 @@ byte totalScreens = 4;
 LedControl lc1 = LedControl(12, 11, 10, totalScreens);
 LedControl lc2 = LedControl(9, 8, 7, totalScreens);
 
+bool timeTravelling = false;
 void setup() {
   pinMode(homeButton, INPUT);
   delay(100);
@@ -42,11 +43,19 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (Serial.available() > 0) {
-    String incomming = Serial.readStringUntil('\n'); // (use of string here is just for debugging)
-    int currentYear = incomming.toInt();
-    Serial.println(currentYear);
-    displayYear(currentYear);
+  if (timeTravelling == false)
+  {
+    if (Serial.available() > 0) {
+      String incomming = Serial.readStringUntil('\n'); // (use of string here is just for debugging)
+      int currentYear = incomming.toInt();
+      Serial.println(currentYear);
+      displayYear(currentYear);
+    }
+    touchsensorReader();
   }
-  touchsensorReader();
+  else
+  {
+    
+  }
+  }
 }
