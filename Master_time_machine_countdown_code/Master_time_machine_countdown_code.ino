@@ -38,7 +38,7 @@ void setup() {
     lc2.clearDisplay(i);         /* and clear the display */
   }
   startHomeYear();
-  displayYear(0000);
+  displayYear(currentYear);
 }
 
 void loop() {
@@ -47,7 +47,7 @@ void loop() {
   {
     if (Serial.available() > 0) {
       String incomming = Serial.readStringUntil('\n'); // (use of string here is just for debugging)
-      int currentYear = incomming.toInt();
+     currentYear = incomming.toInt();
       Serial.println(currentYear);
       displayYear(currentYear);
     }

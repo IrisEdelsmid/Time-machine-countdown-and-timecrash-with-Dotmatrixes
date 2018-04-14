@@ -20,3 +20,18 @@ void error() {
     delay (100);
   }
 }
+
+void Travel() {
+  TimeTravelling = true;
+  if (currentYear > homeYear)(aflopen());
+  else(oplopen());
+}
+
+void aflopen() {
+  unsigned long interval = 1000;
+  unsigned long next = millis() + interval;
+  currentYear --;
+  displayYear(currentYear);
+}
+
+
