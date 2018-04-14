@@ -4,14 +4,14 @@
 
 int touchsensorrReader();
 {
-homeButton();
+  homeButton();
 }
 
 
 int homeButton()
 {
-  digitalRead (homeButton)
+  if (digitalRead (homeButton) == HIGH)
+  {
+    displayHomeYear(homeYear);
+  }
 }
-displayHomeYear();
-
-{

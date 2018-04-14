@@ -15,6 +15,12 @@ extern byte NUMBER[] [8];
   pin 8 is connected to the CLK
   pin 7 is connected to LOAD
 */
+#define homeButton 2
+#define 1000Button 3
+#define 100Button 4
+#define 10Button 5
+#define 1Button 6
+
 
 byte totalScreens = 4;
 LedControl lc = LedControl(12, 11, 10, totalScreens);
@@ -39,5 +45,6 @@ void loop() {
     int currentYear = incomming.toInt();
     Serial.println(currentYear);
     displayYear(currentYear);
+    touchsensorrReader();
   }
 }
