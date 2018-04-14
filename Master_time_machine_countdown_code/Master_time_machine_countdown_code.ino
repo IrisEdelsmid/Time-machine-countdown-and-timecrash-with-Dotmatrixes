@@ -15,7 +15,7 @@ extern byte NUMBER[] [8];
   pin 8 is connected to the CLK
   pin 7 is connected to LOAD
 */
-#define homeButton 2
+#define homeButtonPin 2
 
 byte totalScreens = 4;
 LedControl lc1 = LedControl(12, 11, 10, totalScreens);
@@ -23,7 +23,7 @@ LedControl lc2 = LedControl(9, 8, 7, totalScreens);
 
 bool timeTravelling = false;
 void setup() {
-  pinMode(homeButton, INPUT);
+  pinMode(homeButtonPin, INPUT);
   delay(100);
   Serial.begin(9600);
   /* The MAX72XX is in power-saving mode on startup,
