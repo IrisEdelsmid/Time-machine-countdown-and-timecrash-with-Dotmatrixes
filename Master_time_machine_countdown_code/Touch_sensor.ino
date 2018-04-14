@@ -15,5 +15,6 @@ int HomeButton()
   {
     Serial.println("home");
     displayHomeYear();
+    delay(500);
   }
 }
