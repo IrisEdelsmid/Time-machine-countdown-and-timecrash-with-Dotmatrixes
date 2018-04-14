@@ -4,6 +4,18 @@
 int currentYear = 0000;
 extern byte NUMBER[] [8];
 
+/*
+  LC1
+  pin 12 is connected to the DataIn
+  pin 11 is connected to the CLK
+  pin 10 is connected to LOAD
+
+  LC2
+  pin 9 is connected to the DataIn
+  pin 8 is connected to the CLK
+  pin 7 is connected to LOAD
+*/
+
 byte totalScreens = 4;
 LedControl lc = LedControl(12, 11, 10, totalScreens);
 
