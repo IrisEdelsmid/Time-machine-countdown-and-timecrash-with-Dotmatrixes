@@ -1,4 +1,4 @@
-byte Number [][8] = {
+byte NUMBER [][8] = {
   {
     B00000000,
     B01111110,
