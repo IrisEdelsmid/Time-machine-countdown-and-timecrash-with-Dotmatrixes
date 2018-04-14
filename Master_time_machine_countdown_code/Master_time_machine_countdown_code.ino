@@ -1,31 +1,23 @@
 #include "LedControl.h"
 
 #define homeYear 2018
-
 int currentYear = 0000;
 extern byte NUMBER[] [8];
 
 byte totalScreens = 4;
-LedControl lc1 = LedControl(12, 11, 10, totalScreens);
-LedControl lc2 = LedControl(9, 8, 7, totalScreens);
+LedControl lc = LedControl(12, 11, 10, totalScreens);
 
 void setup() {
   delay(100);
   Serial.begin(9600);
   /* The MAX72XX is in power-saving mode on startup,
     we have to do a wakeup call */
-
-  for (int i = 0; i < totalScreens; i++) {
-    lc1.shutdown(i, false);
-    lc1.setIntensity(i, 8);      /* Set the brightness to a medium values */
-    lc1.clearDisplay(i);         /* and clear the display */
-    lc2.shutdown(i, false);
-    lc2.setIntensity(i, 8);      /* Set the brightness to a medium values */
-    lc2.clearDisplay(i);         /* and clear the display */
-  }
-displayYear(0000);
-startHomeYear();
   
+  for (int i = 0; i < totalScreens; i++) {
+    lc.shutdown(i, false);
+    lc.setIntensity(i, 5);      /* Set the brightness to a medium values */
+    lc.clearDisplay(i);         /* and clear the display */
+  }
 }
 
 void loop() {

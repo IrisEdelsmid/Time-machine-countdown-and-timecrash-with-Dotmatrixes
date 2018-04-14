@@ -2,4 +2,16 @@
 // button two = +100 etc
 //
 
+int touchsensorrReader();
+{
+homeButton();
+}
 
+
+int homeButton()
+{
+  digitalRead (homeButton)
+}
+displayHomeYear();
+
+{
