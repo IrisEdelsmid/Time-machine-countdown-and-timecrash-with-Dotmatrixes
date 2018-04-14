@@ -2,16 +2,18 @@
 // button two = +100 etc
 //
 
-int touchsensorrReader();
+int touchsensorReader()
 {
-  homeButton();
+  // delay(1);
+  HomeButton();
 }
 
 
-int homeButton()
+int HomeButton()
 {
   if (digitalRead (homeButton) == HIGH)
   {
-    displayHomeYear(homeYear);
+    Serial.println("home");
+    displayHomeYear();
   }
 }

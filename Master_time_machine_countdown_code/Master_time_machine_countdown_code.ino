@@ -16,26 +16,28 @@ extern byte NUMBER[] [8];
   pin 7 is connected to LOAD
 */
 #define homeButton 2
-#define 1000Button 3
-#define 100Button 4
-#define 10Button 5
-#define 1Button 6
-
 
 byte totalScreens = 4;
-LedControl lc = LedControl(12, 11, 10, totalScreens);
+LedControl lc1 = LedControl(12, 11, 10, totalScreens);
+LedControl lc2 = LedControl(9, 8, 7, totalScreens);
 
 void setup() {
+  pinMode(homeButton, INPUT);
   delay(100);
   Serial.begin(9600);
   /* The MAX72XX is in power-saving mode on startup,
     we have to do a wakeup call */
-  
+
   for (int i = 0; i < totalScreens; i++) {
-    lc.shutdown(i, false);
-    lc.setIntensity(i, 5);      /* Set the brightness to a medium values */
-    lc.clearDisplay(i);         /* and clear the display */
+    lc1.shutdown(i, false);
+    lc1.setIntensity(i, 8);      /* Set the brightness to a medium values */
+    lc1.clearDisplay(i);         /* and clear the display */
+    lc2.shutdown(i, false);
+    lc2.setIntensity(i, 8);      /* Set the brightness to a medium values */
+    lc2.clearDisplay(i);         /* and clear the display */
   }
+  startHomeYear();
+  displayYear(0000);
 }
 
 void loop() {
@@ -45,6 +47,6 @@ void loop() {
     int currentYear = incomming.toInt();
     Serial.println(currentYear);
     displayYear(currentYear);
-    touchsensorrReader();
   }
+  touchsensorReader();
 }
