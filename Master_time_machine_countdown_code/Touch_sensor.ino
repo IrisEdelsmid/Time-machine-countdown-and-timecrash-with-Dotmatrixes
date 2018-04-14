@@ -19,32 +19,15 @@ int HomeButton()
     displayHomeYear();
   }
       _time1 = millis();
-    if ((_time1 - buttonTime ) > 500 )
+    if ((_time1 - buttonTime ) > 1000 )
     {
-      _sleep = ! _sleep;
-      Sleepmode();
+      startHomeYear();
     }
 }
 
 int StartButton
 {
-  
+    while(digitalRead (homeButtonPin) == HIGH)
+    timeTravelling = true;
 }
-  if (buttonInputClear == HIGH)
-  {
-    strip.setPixelColor(_sleepmodeLed[1], strip.Color(255, 255, 255));
-    buttonTime = millis();
-    Serial.println("buttonTime " + (_buttonTime));
 
-    while ( buttonInputClear == HIGH )
-    {
-      buttonInputClear =  digitalRead (buttonReadClear);
-      Serial.println("Clearbutton = HIGH");
-    }
-    _time1 = millis();
-    if ((_time1 - buttonTime ) > minimumPressMiliSeconds )
-    {
-      _sleep = ! _sleep;
-      Sleepmode();
-    }
-  }
