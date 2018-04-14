@@ -11,23 +11,24 @@ int touchsensorReader()
 
 int HomeButton()
 {
-  buttonTime = millis();
-  while(digitalRead (homeButtonPin) == HIGH)
+  unsigned long buttonTime = millis();
+  while (digitalRead (homeButtonPin) == HIGH)
   {
     digitalRead (homeButtonPin);
     Serial.println("home");
     displayHomeYear();
   }
-      _time1 = millis();
-    if ((_time1 - buttonTime ) > 1000 )
-    {
-      startHomeYear();
-    }
+  unsigned long  _time1 = millis();
+  if ((_time1 - buttonTime ) > 1000 )
+  {
+    startHomeYear();
+  }
 }
 
-int StartButton
+void StartButton()
 {
-    while(digitalRead (homeButtonPin) == HIGH)
+  if (digitalRead (homeButtonPin) == HIGH) {
     timeTravelling = true;
+  }
 }
 

@@ -22,7 +22,7 @@ void error() {
 }
 
 void Travel() {
-  TimeTravelling = true;
+  timeTravelling = true;
   if (currentYear > homeYear)(aflopen());
   else(oplopen());
 }
@@ -34,4 +34,7 @@ void aflopen() {
   displayYear(currentYear);
 }
 
+void oplopen(){
+  
+}
 
