@@ -1,6 +1,6 @@
 #include "LedControl.h"
 
-#define homeYear 2018
+int homeYear = 2018;
 int currentYear = 0000;
 extern byte NUMBER[] [8];
 
@@ -16,6 +16,8 @@ extern byte NUMBER[] [8];
   pin 7 is connected to LOAD
 */
 #define homeButtonPin 2
+#define startButtonPin 3
+#define fohnPin 13
 
 byte totalScreens = 4;
 LedControl lc1 = LedControl(12, 11, 10, totalScreens);
@@ -24,6 +26,9 @@ LedControl lc2 = LedControl(9, 8, 7, totalScreens);
 bool timeTravelling = false;
 void setup() {
   pinMode(homeButtonPin, INPUT);
+  pinMode(startButtonPin, INPUT);
+  pinMode(fohnPin, OUTPUT);
+  digitalWrite(fohnPin, LOW);
   delay(100);
   Serial.begin(9600);
   /* The MAX72XX is in power-saving mode on startup,
