@@ -1,51 +1,114 @@
 #include "LedDisplay.h"
-// #include "LedControl.h"
+#include <Keypad.h>
 
-//
-//int homeYear = 2018;
-//int currentYear = 0000;
-//extern byte NUMBER[] [8];
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //four columns
+//define the cymbols on the buttons of the keypads
+char hexaKeys[ROWS][COLS] = {
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
 
+byte rowPins[ROWS] = {2, 3, 4, 5}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {6, 7, 8, 9}; //connect to the column pinouts of the keypad
+
+Keypad keypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+
+bool timeTravelling;
 /*
-  LC1
-  pin 12 is connected to the DataIn
-  pin 11 is connected to the CLK
-  pin 10 is connected to LOAD
+  Current
+  current.LedDisplay
+  pin A0 is connected to the DataIn
+  pin A1 is connected to the CLK
+  pin A2 is connected to LOAD
 
-  LC2
-  pin 9 is connected to the DataIn
-  pin 8 is connected to the CLK
-  pin 7 is connected to LOAD
+  Destination
+  destination.LedDisplay
+  pin A3 is connected to the DataIn
+  pin A4 is connected to the CLK
+  pin A5 is connected to LOAD
 */
-//#define homeButtonPin 2
-//#define startButtonPin 3
-//#define fohnPin 13
-//
-byte totalScreens = 8;
-LedDisplay lc1 = LedDisplay(12, 11, 10, totalScreens);
-//LedControl lc1 = LedControl(12, 11, 10, totalScreens);
-//LedDisplay lc2 = LedDisplay(9, 8, 7, totalScreens);
+// byte totalScreens = 8;
+LedDisplay current = LedDisplay(A0, A1, A2, 8);
+LedDisplay destination = LedDisplay(A3, A4, A5, 8);
 
 
 void setup() {
   delay(100);
   Serial.begin(9600);
 
-  for (int i = 0; i < totalScreens; i++) {
-    lc1.shutdown(i, false);
-    lc1.setIntensity(i, 8);      /* Set the brightness to a medium values */
-    lc1.clearDisplay(i);         /* and clear the display */
-  }
+  current.setupDisplay(8);  // setup the display with intensity 0 to 16
+  delay(100);
+  destination.setupDisplay(8);  // setup the display with intensity 0 to 16
+  delay(100);
+  // typeCurrentYear();
 }
 
 
 void loop() {
-  if (Serial.available()) {
-    String binnen = Serial.readStringUntil('\n');
-    long number = binnen.toInt();
-    lc1.year = number;
-    Serial.println(lc1.year);
-    lc1.displayYear();
+  // fillAll();
+  //  delay(2000);
+  // halloKinders();
+  //current.setString("tttttttt");
+  // destination.setString("ttttttta");
+  checkInput();
+}
+
+void checkInput() {
+  char customKey = keypad.getKey();
+  if (customKey == 'A') {
+    typeCurrentYear();
   }
+  else if (customKey == 'B') {
+    typeDestinationYear();
+  }
+  else if (customKey == 'D') {
+    halloKinders();
+  }
+}
+
+void fillAll() {
+  for (int i = 0; i < 8; i++) {
+    current.fillDisplay(i);
+    destination.fillDisplay(i);
+    delay(100);
+  }
+}
+void halloKinders() {
+  current.setString("hallo?");
+  delay(2000);
+  destination.setString("hallo??");
+  delay(4000);
+  current.setString("is daar");
+  destination.setString("iemand?");
+  delay(4000);
+  current.setString("ik zie");
+  destination.setString("jullie!!");
+  delay(5000);
+  current.setString(" hallo");
+  destination.setString(" welpen");
+  delay(4000);
+  current.setString("ik ben");
+  destination.setString("  ");
+  delay(1000);
+  destination.setString("janus!");
+  delay(5000);
+  // current.setString("en ik");
+  destination.setString("de baas!");
+  delay(5000);
+  current.setString("van tijd");
+  destination.setString(" ");
+  delay(1000);
+  destination.setString("altijd!");
+  delay(4000);
+  current.setString("pak me");
+  destination.setString("dan");
+  delay(3000);
+  current.setString("als je");
+  destination.setString("kan");
+  delay(3000);
+  fillAll();
 }
 

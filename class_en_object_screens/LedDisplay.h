@@ -34,8 +34,8 @@
 #endif
 
 
-/* numbers 0 to 9 are the corresponding digits.
-    number 10 is minus " - "
+/* bytes numbers 0 to 9 are the corresponding digits.
+   byte number 10 is minus '-'
 */
 const static byte numberTable [][8] = {
   {B00000000, B01111110, B10000001, B10000001, B10000001, B01111110, B00000000, B00000000},
@@ -48,10 +48,13 @@ const static byte numberTable [][8] = {
   {B00000000, B00000000, B11100000, B10010000, B10001000, B10000111, B10000000, B00000000},
   {B00000000, B00000000, B01101110, B10010001, B10010001, B10010001, B01101110, B00000000},
   {B00000000, B00000000, B01111110, B10001001, B10001001, B10001001, B01110010, B00000000},
-  {B00000000, B00011000, B00011000, B00011000, B00011000, B00011000, B00011000, B00000000}
+  {B00000000, B00011000, B00011000, B00011000, B00011000, B00011000, B00011000, B00000000}  // # 10 = '-'
 };
 
-
+/* bytes number 0 to 25 are the letters A to Z.
+   byte number 26 is '!'
+   byte number 27 is '?'
+*/
 
 const static byte charTable[][8] = {
   {B00000000, B00111100, B01100110, B01100110, B01111110, B01100110, B01100110, B01100110},
@@ -79,7 +82,9 @@ const static byte charTable[][8] = {
   {B00000000, B01100011, B01100011, B01100011, B01101011, B01111111, B01110111, B01100011},
   {B00000000, B01100011, B01100011, B00110110, B00011100, B00110110, B01100011, B01100011},
   {B00000000, B01100110, B01100110, B01100110, B00111100, B00011000, B00011000, B00011000},
-  {B00000000, B01111110, B00000110, B00001100, B00011000, B00110000, B01100000, B01111110}
+  {B00000000, B01111110, B00000110, B00001100, B00011000, B00110000, B01100000, B01111110},
+  {B00011000, B00111100, B00111100, B00011000, B00011000, B00000000, B00011000, B00011000}, // # 26 = !
+  {B01111000, B11001100, B00001100, B00011000, B00110000, B00000000, B00110000, B00110000}  // # 27 = ?
 };
 
 
@@ -99,7 +104,7 @@ class LedDisplay {
     /* This one is driven LOW for chip selectzion */
     int SPI_CS;
     /* The maximum number of devices we use */
-    int maxDevices;
+    // int maxDevices;
 
   public:
     /*
@@ -114,7 +119,7 @@ class LedDisplay {
 
     // custom for time machine:
     long year;
-
+    int maxDevices;
 
     /*
        Gets the number of devices attached to this LedDisplay.
@@ -206,6 +211,10 @@ class LedDisplay {
     void setString(String message);
 
     void displayYear();
+
+    void setupDisplay(int intensity);
+
+    void fillDisplay(int addr);
 
 
 };

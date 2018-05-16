@@ -166,11 +166,17 @@ void LedDisplay::setDigit(byte screen, byte digit) {
 // in setColumn() heb ik iets aangepast waardoor alles in spiegelbeeld is, waardoor de letters normaal op het scherm komen.
 
 void LedDisplay::setChar(byte screen, char value) {
-  if (value == ' ' || value < 97) {
+  unsigned int digit;
+
+  // vind the corresponding byte array for the char
+  if (value == ' ') {
     clearDisplay(screen);
   }
   else {
-    unsigned int digit = value - 97;
+    if (value == '!') (digit = 26);
+    else if (value == '?')(digit = 27);
+    else (digit = value - 97);
+    // print the char on the led module.
     for (byte i = 0; i < 8; i ++) {
       setColumn(screen, i, charTable [digit] [i]);
     }
@@ -188,15 +194,23 @@ void LedDisplay::setString(String message) {
   for (byte i = 0; i < L ; i ++) {
     char C = message.charAt(i);
     setChar(i, C);
+    delay(100);
+  }
+}
+
+void LedDisplay::setupDisplay(int intensity) {
+  for (int i = 0; i < maxDevices ; i++) {
+    shutdown(i, false);
+    setIntensity(i, intensity);      /* Set the brightness to a medium values */
+    clearDisplay(i);         /* and clear the display */
   }
 }
 
 
-
 void LedDisplay::displayYear() {
-    // clear all LED modules befor printing new content
+  // clear all LED modules befor printing new content
   for (int i = 0; i <=  maxDevices ; i++) (clearDisplay(i));
-  
+
   long inpunt = year;
   int valLength;    // find the number of digits
   int y [8];
@@ -219,6 +233,11 @@ void LedDisplay::displayYear() {
   }
 }
 
+void LedDisplay::fillDisplay(int addr) {
+  for (int i = 0; i < 8 ; i++) {
+    setColumn(addr, i, B11111111);
+  }
+}
 
 void LedDisplay::spiTransfer(int addr, volatile byte opcode, volatile byte data) {
   //Create an array with the data to shift out
